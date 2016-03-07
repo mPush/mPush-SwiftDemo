@@ -24,13 +24,27 @@ typedef NS_ENUM(NSUInteger, LocalPushActionType) {
 *  @param extention 参数字典
 *                   action 参数, tp : 1=打开应用内页面, 2=打开应用，3=打开url（默认 tp = 2）
 *                               val :对应tp所指定的值，tp为1时，val是所指定应用内界面的别名；tp为3时，val是所指定的url地址；tp为2时，val为空。（默认为空）
-*                               mode：远程通知时，会有此参数，iOS忽略。
 *
 *  @return BOOL 当返回YES时，仅处理至当前事件处，后续事件将不再执行，当返回NO时，按照事件链继续执行，直至返回YES或者所有事件执行完。
 */
 - (BOOL)onMessage:(NSString *)title
           content:(NSString *)content
         extention:(NSDictionary *)extention;
+
+/**
+ *  收到消息后的代理回调方法
+ *
+ *  @param content          消息内容
+ *  @param userinfo         消息完整结构体
+ *                   action 参数, tp : 1=打开应用内页面, 2=打开应用，3=打开url（默认 tp = 2）
+ *                               val :对应tp所指定的值，tp为1时，val是所指定应用内界面的别名；tp为3时，val是所指定的url地址；tp为2时，val为空。（默认为空）
+ *
+ *  @param applicationState 收到消息时，应用的状态
+ *
+ *  @return BOOL 当返回YES时，仅处理至当前事件处，后续事件将不再执行，当返回NO时，按照事件链继续执行，直至返回YES或者所有事件执行完。
+ */
+//- (BOOL)onMessage:(NSString *)content userinfo:(NSDictionary *)userinfo applicationState:(UIApplicationState)applicationState;
+
 @end
 
 
@@ -197,6 +211,11 @@ typedef NS_ENUM(NSUInteger, LocalPushActionType) {
 *  @param tags tag名称。
 */
 + (void)deleteTags:(NSArray *)tags;
+
+/**
+*  清除badge
+*/
++ (void)removeBadge;
 
 /**
 *  获取验证码接口（调用此接口前，请确保手机号正常可用。）
